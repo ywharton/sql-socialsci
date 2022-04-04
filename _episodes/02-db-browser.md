@@ -25,7 +25,7 @@ keypoints:
 We use DB Browser for SQLite and the SQL SAFI database/ dataset throughout this lesson. See the setup instructions on how to download the data, and also how to install the DB Browser for SQLite.
 
 ## Motivation
-To start let's orient ouselves in pour project workflow. Previously we used Excel and OpenRefine to go from messy, human created data to cleaned, computer-readable data.  Now we're going to move to the next piece of the data workflow, using the computer to read in our data, so we can then access it for analysis and visualisation.
+To start let's orient ourselves in our project workflow. Previously we used Excel and OpenRefine to go from messy, human created data to cleaned, computer-readable data.  Now we're going to move to the next piece of the data workflow, using the computer to read in our data, so we can then access it for analysis and visualisation.
 
 ## Dataset description
 The data we will be using is a subset of data collected from the SAFI (Studying African Farmer-Led Irrigation) project.  This project  is looking at farming and irrigation methods. This is survey data relating to households and agriculture in Tanzania and Mozambique. The survey data was collected through interviews conducted between November 2016 and June 2017 using forms downloaded to Android Smartphones.
