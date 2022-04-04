@@ -20,6 +20,19 @@ keypoints:
 
 
 
+## Setup
+
+We use DB Browser for SQLite and the SQL SAFI database/ dataset throughout this lesson. See the setup instructions on how to download the data, and also how to install the DB Browser for SQLite.
+
+## Motivation
+To start let's orient ouselves in pour project workflow. Previously we used Excel and OpenRefine to go from messy, human created data to cleaned, computer-readable data.  Now we're going to move to the next piece of the data workflow, using the computer to read in our data, so we can then access it for analysis and visualisation.
+
+## Dataset description
+The data we will be using is a subset of data collected from the SAFI (Studying African Farmer-Led Irrigation) project.  This project  is looking at farming and irrigation methods. This is survey data relating to households and agriculture in Tanzania and Mozambique. The survey data was collected through interviews conducted between November 2016 and June 2017 using forms downloaded to Android Smartphones.
+
+The survey covered such things as; household features (e.g. construction materials used, number of household members), agricultural practices (e.g. water usage), assets (e.g. number and types of livestock) and details about the household members.
+
+
 ## Launching DB Browser
 
 In Windows the installation of DB Browser does not create a desktop icon. To explicitly launch the application after installing it, use the windows button (bottom left of screen) and type in ‘DB Browser’ in the search bar and selecting the application when it appears.
@@ -58,81 +71,108 @@ Towards the bottom there is a section dealing with Field colors. You will see th
 
 ## Opening a database
 
-For this lesson we will be making extensive use of the SQL_SAFI database. If you do not already have a copy of this database you can download it from [here](../data/SQL_SAFI.sqlite).
+Let's look at a pre-existing database, the  [SQL_SAFI.sqlite](../data/SQL_SAFI.sqlite) file from the SAFI project that you downloaded during the setup. 
 
 To open the database in DB Browser do the following;
-1. Click on the 'open database' button in the toolbar.
-2. Navigate to where you have stored the database file on your local machine, select it and click open.
+1. Click on the 'Open Database' button in the toolbar.
+2. Navigate to where you have stored the database file on your local machine, select it and click 'Open'.
 
-When you open the database, the 'Database Structure' tab on the left and the 'DB Schema' pane on the right will look very similar. 
-However the 'DB Schema' pane is only there to allow you to see the details of the schema for the tables. In particular what tables are in the database and the fields and their types which are in each table.
+You can see the table sin the database by looking at the left hand side of the screen under the 'Database Structure' tab. Here you will see a list under 'Tables'.  To see the contents of any table , click on it, and then click the 'Browse Data' next to the 'Database Structure'.  This will give us a view that we are used to - a copy of the table.  Hopefully this helps to show that a database is, in some sense, just a collection of tables, where there's some value in the tables that allows them to be connected to each other (the 'related' part of the 'relational database'). Also note there are options for 'New Record' and 'Delete Record'. As our interest is in analysing existing data not creating or deleting data, it is unlikely that you will want to use these options. 
 
-The 'Database Structure' tab on the left allows you to initiate actions on the tables. 
-If you right click on a table name in the 'DB Schema' pane, nothing happens. 
-However, if you do the same in the 'Database Structure' menu you will be given a set of possible actions.
-These are the same actions that are available from the toolbar at the top of the tab.
+The 'Database Structure' tab also provides some metadata about each table. If you click on the down arrow next to a table name, you will see information about the columns, which in databases are referred to as 'fields', and their assigned data types (the rows of a database table are called *records*). Each field contains one variety or type of data, often numbers or text. You can see in the XXX table that most fields contain numbers (BIGINT, or big integer, and FLOAT, or floating point numbers/decimals) while the XXX table is entirely made up of text fields.
+
+The "Execute SQL" tab is blank now - this is where we'll be typing our queries to retrieve information from the database tables.
+
 
 ![Table Actions](../fig/DB_Browser_run_3.png)
 
-If you select 'Browse Table', the data from the table is loaded into the 'Browse Data' pane from where it can be examined or filtered.
-You can also select the table you wish to Browse directly from here.
+To summarize:
 
-There are options for 'New Record' and 'Delete Record'. As our interest is in analysing existing data not creating or deleting data, it is unlikely that you will want to use these options. 
+* Relational databases store data in tables with fields (columns) and records (rows)
+* Data in tables has types, and all values in a field have the same type ([list of data types](#datatypes))
+* Queries let us look up data or make calculations based on columns
 
-## Running SQL Queries
+## Database Design
 
-We will be running queries extensively in future episodes. For now we will just provide an outline of the environment.
-
-In the left hand pane if you select the Execute SQL tab, you will be presented with a three paned window and a small toolbar. 
-The top pane is itself tabbed with the initial tab labeled 'SQL 1'. This is the SQL editor pane into which you will type your queries.
-
-Below is a simple example query and the results.
-
-![SQL Query results](../fig/DB_Browser_run_4.png)
-
-Notice that the query has been written over multiple lines. This is commonly done to aid readability.
-The second pane has the tabular results, and the bottom pane has a message indicating how many rows were returned, how long it took and a copy of the SQL statement that was executed.
+* Every row-column combination contains a single *atomic* value, i.e., not containing parts we might want to work with separately.
+* One field per type of information
+* No redundant information
+    * Split into separate tables with one table per class of information
+    * Needs an identifier in common between tables – shared column - to reconnect (known as a *foreign key*).
 
 
-On the toolbar at the top there are eight buttons. Left to right they are:
+## Import
 
-* Open Tab        (creates a new tab in the editor)
-* Open SQL file   (allows you to load a prepared file of SQL into the editor - the tab takes the name of he file)
-* Save SQL file   (allows you to save the current contents of the active pane to the local file system)
-* Execute SQL     (Executes all of the SQL statements in the editor pane)
-* Execute current line    (Actually executes whatever is selected)
-* Save Results    (Either to a CSV file or as a database view. We will look at views in a later episode)
-* Find            (Text in the editor window)
-* Find & Replace  (Text in the editor window) 
+Before we get started with writing our own queries, we'll create our own database.  We'll be creating this database from the three `csv` files we downloaded earlier.  Close the currently open database (**File > Close Database**) and then follow these instructions:
+
+1. Start a New Database
+    - Click the **New Database** button
+    - Give a name and click Save to create the database in the opened folder
+    - In the "Edit table definition" window that pops up, click cancel as we will be importing tables, not creating them from scratch
+2. Select **File >> Import >> Table from CSV file...**
+3. Choose `farms.csv` from the data folder we downloaded and click **Open**.
+4. Give the table a name that matches the file name (`farms`), or use the default
+5. If the first row has column headings, be sure to check the box next to "Column names in first line".
+6. Be sure the field separator and quotation options are correct. If you're not sure which options are correct, test some of the options until the preview at the bottom of the window looks right.
+7. Press **OK**, you should subsequently get a message that the table was imported.
+9. Back on the Database Structure tab, you should now see the table listed. Right click on the table name and choose **Modify Table**, or click on the **Modify Table** button just under the tabs and above the table list.
+10. Click **Save** if asked to save all pending changes.
+11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table below (this includes fields from the `plots` and `crops` tables also).
+12. Finally, click **OK** one more time to confirm the operation. Then click the **Write Changes** button to save the database.
+
+> ## Challenge
+>
+> - Import the `plots` and `crops` tables
+{: .challenge}
+
+You can also use this same approach to append new fields to an existing table.
+
+## Adding fields to existing tables
+
+1. Go to the "Database Structure" tab, right click on the table you'd like to add data to, and choose **Modify Table**, or click on the **Modify Table** just under the tabs and above the table.
+2. Click the **Add Field** button to add a new field and assign it a data type.
+
+## <a name="datatypes"></a> Data types
+
+| Data type                          | Description                                                                                              |
+|------------------------------------|:---------------------------------------------------------------------------------------------------------|
+| CHARACTER(n)                       | Character string. Fixed-length n                                                                         |
+| VARCHAR(n) or CHARACTER VARYING(n) | Character string. Variable length. Maximum length n                                                      |
+| BINARY(n)                          | Binary string. Fixed-length n                                                                            |
+| BOOLEAN                            | Stores TRUE or FALSE values                                                                              |
+| VARBINARY(n) or BINARY VARYING(n)  | Binary string. Variable length. Maximum length n                                                         |
+| INTEGER(p)                         | Integer numerical (no decimal).                                                                          |
+| SMALLINT                           | Integer numerical (no decimal).                                                                          |
+| INTEGER                            | Integer numerical (no decimal).                                                                          |
+| BIGINT                             | Integer numerical (no decimal).                                                                          |
+| DECIMAL(p,s)                       | Exact numerical, precision p, scale s.                                                                   |
+| NUMERIC(p,s)                       | Exact numerical, precision p, scale s. (Same as DECIMAL)                                                 |
+| FLOAT(p)                           | Approximate numerical, mantissa precision p. A floating number in base 10 exponential notation.          |
+| REAL                               | Approximate numerical                                                                                    |
+| FLOAT                              | Approximate numerical                                                                                    |
+| DOUBLE PRECISION                   | Approximate numerical                                                                                    |
+| DATE                               | Stores year, month, and day values                                                                       |
+| TIME                               | Stores hour, minute, and second values                                                                   |
+| TIMESTAMP                          | Stores year, month, day, hour, minute, and second values                                                 |
+| INTERVAL                           | Composed of a number of integer fields, representing a period of time, depending on the type of interval |
+| ARRAY                              | A set-length and ordered collection of elements                                                          |
+| MULTISET                           | A variable-length and unordered collection of elements                                                   |
+| XML                                | Stores XML data                                                                                          |
 
 
+## <a name="datatypediffs"></a> SQL Data Type Quick Reference
 
-Because it is possible to have and execute multiple SQL statements in the same editor pane, each must be terminated with a ';'.
-If you only have a single statement you don't need it, but it might be considered best practice to always include it.
+Different databases offer different choices for the data type definition.
 
-The pane below the editor is the Results pane. The results of running your query will appear here in a simple tabular format.
-The bottom pane is for messages about the execution, either an error message or an indication of how many rows were returned by the query.
+The following table shows some of the common names of data types between the various database platforms:
 
-
-## Creating a database
-
-As well as opening (connecting) to existing databases it is also possible to create new SQLite databases and tables using DB Browser.
-To create a database click the New Database button from the main toolbar (also available from the File menu). You will initially be asked for a name for the database and where you want to save it. It is saved as a single file. You can choose your own extension but 'sqlite' is recommended. If you do not provide a default, then a '.db' extension will be used. Although the new database is empty, in that there are no tables in it, the `.sqlite` file itself is not empty.
-
-Once you have saved the database file the Create Table wizard will open allowing you to create a table. You can cancel this as we will be going through the create table process in a later episode.
-
-
-## Write Changes & Revert Changes
-
-Much of our SQL work involves looking at existing data using SQL queries and possibly writing out the results to a CSV file, in general we will not be changing the contents of the database.
-
-However if, during your DB Browser session, you were to create or delete a table or create a view, then the changes are not automatically written to the database file. 
-
-When you try to end the session (i.e. close the application) in which you have made such changes, then you will be asked if you want to save the changes you have made. 
-Alternatively you can explicitly save changes or revert changes during a session by use of the Write Changes and Revert Changes buttons on the toolbar. 
-Once written the changes are permanent (there is no concept of multiple 'undo' like you might have in other programs). 
-Revert Changes will take you back to the last Written copy.
-
-
-
+| Data type                                               | Access                    | SQLServer            | Oracle             | MySQL          | PostgreSQL    |
+|:--------------------------------------------------------|:--------------------------|:---------------------|:-------------------|:---------------|:--------------|
+| boolean                                                 | Yes/No                    | Bit                  | Byte               | N/A            | Boolean       |
+| integer                                                 | Number (integer)          | Int                  | Number             | Int / Integer  | Int / Integer |
+| float                                                   | Number (single)           | Float / Real         | Number             | Float          | Numeric       |
+| currency                                                | Currency                  | Money                | N/A                | N/A            | Money         |
+| string (fixed)                                          | N/A                       | Char                 | Char               | Char           | Char          |
+| string (variable)                                       | Text (<256) / Memo (65k+) | Varchar              | Varchar2 | Varchar        | Varchar       |
+| binary object	OLE Object Memo	Binary (fixed up to 8K)   | Varbinary (<8K)           | Image (<2GB)	Long | Raw	Blob          | Text	Binary | Varbinary     |
 
