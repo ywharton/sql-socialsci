@@ -1,55 +1,25 @@
 ---
-title: "The Select Statement"
-teaching: 15
-exercises: 10
+title: "Accessing Data with Queries"
+teaching: 30
+exercises: 5
 questions:
 - "What is SQL?"
-- "How can I return specific columns from a table?"
-- "How can I return specific rows from a table?"
+- "How can I write basic queries in SQL?"
 
 objectives:
 - "Define  SQL" 
-- "Explain how SQL is used to access relational database tables"
-- "Understand the difference  between DDL and DML"
 - "Create simple SQL queries to return rows and columns from existing tables"
-- "Construct more complex logical expressions for use in WHERE clauses"
-- "Return sorted results from a query"
+- "Filter data given various criteria"
+- "Sort the results of a query"
 
 keypoints:
 - "Strictly speaking SQL is  a standard, not a particular implementation"
 - "SQL implementation are sufficiently close that you only have to learn SQL once"
-- "The DDL constructs are used to create tables and other database objects"
-- "The DML constructs, typically the SELECT statement is used to retrieve data from one or more tables"
 - "The SELECT statement allows you to 'slice' and 'dice' the columns and rows of the dataset so that the query only returns the data of interest"
 ---
 
 ## Definition of SQL 
-SQL or Structured Query Language is an international standard for manipulating data in a relational database.
-Each Relational Database system like Oracle, MySQL or SQLite implements its own variation of the standard.
-
-Fortunately for the types of commands and queries that we will want to write, all of the implementations are much in agreement.
-The SELECT queries we will be writing to access data in our SQLite database will execute un-altered in many of the other environments.
-
-Essentially you only have to learn SQL once.
-
-## SQL and Relational database tables
-
-The strength of SQL is that a single SQL statement or query can request data be returned from one or many of the tables in the database. 
-You can essentially define the relationships between tables on-the-fly as part of your query statement. Relationships between tables are often included as
-part of the overall database design. In our situation we may be getting an assortment of tables from different sources so being able to imply the relationship as part of 
-the query has definite advantages.
-
-## DDL and DML
-
-DDL stands for Data Definition Language. It is the set of SQL commands used to create alter of delete database objects such as tables.
-
-DML stands for Data Manipulation Language. For our purposes this is the SELECT command which is used to extract data items from one or more of the database tables.
-
-## Simple SQL queries using the Select statement
-
-For the rest of this episode we will be looking at the SELECT statement.
-
-To follow along, you should open the DB Browser application and connect to the SQL_SAFI database.
+SQL stands for Structured Query Language. SQL allows us to interact swith data in a relational database through queries. These queries allow us to perform a number of actions such as inserting, selecting, updating, and deleting information in a database. 
 
 In SQL, querying data is performed by a SELECT statement. A select statement has 6 key components;
 
@@ -63,14 +33,14 @@ ORDER BY colnames
 ~~~ 
 {: .sql}
 
-In practice very few queries will have all of these clauses in them simplifying many queries. On the other hand, 
-conditions in the WHERE clause can be arbitrarily complex and if you need to JOIN two or more tables together then more clauses (JOIN and ON) are needed.
+## Writing your first SQL query - the Select statement
+ 
+Let's start by using the **farms** table. Here we have data on every individual farm. 
 
-All of the clause names above have been written in uppercase for clarity. SQL is not case sensitive. Neither do you need to write each clause on a new line, but it is often clearer to do so for all but the simplest of queries.
-
-In this episode we will start with the very simple and work our way up to the more complex.
-
-The simplest query is effectively one which returns the contents of the whole table
+Let’s write an SQL query that selects all of the columns in the farms table. SQL queries can be written in the box located under the "Execute SQL" tab. 
+Click on the right arrow above the query box to execute the query. (You can also use the keyboard shortcut "Cmd-Enter" on a Mac or "Ctrl-Enter" on a Windows machine to execute a query.) 
+The results are displayed in the box below your query. 
+If you want to display all of the columns in a table, use the wildcard *.
 
 ~~~ 
 SELECT *
@@ -78,14 +48,7 @@ FROM Farms;
 ~~~ 
 {: .sql}
 
-It is better practice and generally more efficient to explicitly list the column names that you want returned.
-
-~~~ 
-SELECT Country, A06_province, A07_district, A08_ward, A09_village
-FROM Farms;
-~~~ 
-{: .sql}
-
+We have capitalized the words SELECT and FROM because they are SQL keywords. SQL is case insensitive, but it helps for readability, and is good style.
 The '*' character acts as a wildcard meaning all of the columns but you cannot use it as a general wildcard.
 So for example, the following is not valid.
 ~~~ 
@@ -97,10 +60,25 @@ FROM Farms;
 If you run it you will get an error.
 When an error does occur you will see an error message displayed in the bottom pane. 
 
-In addition to limiting the columns returned by a query, you can also limit the rows returned. 
-The simplest case is to say how many rows are wanted using the `Limit` clause. 
-In the example below only the first ten rows of the result of the query will be returned. 
-This is useful if you just want to get a feel for what the data looks like. 
+If we want to select a single column, we can type the column name instead of the wildcard *.
+~~~ 
+SELECT Country
+FROM Farms;
+~~~ 
+{: .sql}
+
+If we want more information, we can add more columns to the list of fields (such as A06_province, A07_district, A08_ward, A09_village),right after SELECT:
+
+~~~ 
+SELECT Country, A06_province, A07_district, A08_ward, A09_village
+FROM Farms;
+~~~ 
+{: .sql}
+
+
+### Limiting results
+
+Sometimes you don't want to see all the results, you just want to get a sense of what's being returned. In that case, you can use the `LIMIT` command. In particular, you would want to do this if you were working with large databases. In the example below only the first ten rows of the result of the query will be returned.  This is useful if you just want to get a feel for what the data looks like. 
 
 ~~~ 
 SELECT *
@@ -130,9 +108,30 @@ LIMIT 10;
 > {: .solution}
 {: .challenge}
 
-## The `Where` clause
+### Unique values
 
-Usually you will want to restrict the rows returned based on some criteria. i.e. certain values or ranges within one or more columns. 
+If we want only the unique values so that we can quickly see what farms have been sampled we can use `DISTINCT` 
+Using the farms table we can obtain a list of all the different vlaues of the 'A06_province' column contained in the table.
+
+~~~
+    SELECT DISTINCT A06_province
+    FROM surveys;
+~~~
+> > {: .sql}
+
+If we select more than one column, then the distinct pairs of values are
+returned
+
+    SELECT DISTINCT year, species_id
+    FROM surveys;
+
+## Filtering - using the `Where` clause
+
+Databases can also filter data – selecting only the data meeting certain criteria i.e. certain values or ranges within one or more columns. 
+For example, let’s say we only want data for the in rows where the value in the B16_years_liv column is greater than 25.   
+
+We need to add a `WHERE` clause to our query:
+
 
 In this example we are only interested in rows where the value in the B16_years_liv column is greater than 25
 
@@ -153,24 +152,21 @@ WHERE B17_parents_liv = 'yes'
 ~~~ 
 {: .sql}
 
-## Using more complex logical expressions in the `Where` clause
+### Using more AND and OR logical expressions
 
-We can also use the AND and OR keywords to build more complex selection criteria. 
+We can also use more sophisticated criteria by combining tests with AND and OR keywords.
+For example, suppose we want the data where both sets of parents live in the house and both have grandchildren:
 
 ~~~
 SELECT  Id
 FROM Farms
-WHERE    B17_parents_liv = 'yes' 
-     AND B18_sp_parents_liv = 'yes' 
-     AND B19_grand_liv = 'yes' 
-     AND B20_sp_grand_liv = 'yes' 
+WHERE (B17_parents_liv = 'yes') AND (B18_sp_parents_liv = 'yes') AND (B19_grand_liv = 'yes') AND (B20_sp_grand_liv = 'yes') 
 ;
 ~~~ 
 {: .sql}
 
 Notice that the columns being used in the `WHERE` clause do not need to returned as part of the `SELECT` clause. 
-
-You can ensure the precedence of the operators by using brackets. Judicious use of brackets can also aid readability
+You can ensure the precedence of the operators by using brackets and also aid readability
 
 ~~~
 SELECT  Id
@@ -214,7 +210,9 @@ WHERE (B17_parents_liv = 'yes' OR B18_sp_parents_liv = 'yes') AND B16_years_liv 
 > {: .solution}
 {: .challenge}
 
-The following query returns the rows where the value of B16_years_liv is in the range 51 to 59 inclusive.
+### Building more complex queries
+Now let's combine qeuries to get data from the farms table where the value of B16_years_liv is in the range 51 to 59 inclusive. 
+We could use an AND operator 
 
 ~~~
 SELECT Id, B16_years_liv
@@ -270,14 +268,24 @@ The list of values in brackets do not have to be contiguous or even in order.
 
 ## Sorting results 
 
-If you want the results of your query to appear in a specific order, you can use the ORDER BY clause
+We can also sort the results of our queries by using `ORDER BY`.
+For simplicity, let’s go back to the **farms** table and select the rows where the village is 'God'
+and alphabetize it by years farmed.
+
+~~~
+SELECT Id, A09_village, A11_years_farm, B16_years_liv
+FROM Farms
+WHERE A09_village = 'God';
+~~~ 
+{: .sql}
+
+Now let's order it by years on the farm (A11_years_farm).
 
 ~~~
 SELECT Id, A09_village, A11_years_farm, B16_years_liv
 FROM Farms
 WHERE A09_village = 'God'
-ORDER BY A11_years_farm
-;
+ORDER BY A11_years_farm;
 ~~~ 
 {: .sql}
 
