@@ -1,5 +1,5 @@
 ---
-title: "Joins"
+title: "Combining Data with Joins"
 teaching: 20
 exercises: 10
 questions:
@@ -10,11 +10,8 @@ questions:
 
 objectives:
 - "Understand the structure of a joined table"
-
 - "Familiarity with the different join types"
-
 - "Use different join types in analysing your data"
-
 - "Understand what other join types can tell you about your data"
 
 keypoints:
@@ -27,25 +24,20 @@ keypoints:
 
 ## About table joins
 
-In any relational database system, the ability to join tables together is a key querying requirement.
-Joins are used to combine the columns from two (or more) tables together to form a single table. 
-A join between tables will only be possible if they have at least one column in common. 
-The column doesn't have to have the same name in each table, and quite often they won’t, but they do have to have a common usage.
+Database tables are used to organize and group data by common characteristics or principles. 
+Often, we need to combine columns from two (or more) separate tables to answer our questions.
 
+A JOIN is a means for combining columns from multiple tables by using values common to each. A join between tables will only be possible if they have at least one column in common. The column doesn't have to have the same name in each table, and quite often they won’t, but they do have to have a common usage.
 
 In the SAFI database we have three tables. Farms, Plots and Crops. Each farm has a number of plots (or fields) and each plot can be used to grow different crops.
 A question you might ask is: Which Farms with more than 12 people in the household grow Maize? No single table has the answer to this question.
 
 We can write queries to answer each part separately
-
-
-
-
 ~~~
 -- how many crops of Maize?
-select * 
-from Crops
-where D_curr_crop = 'maize'
+SELECT * 
+FROM Crops
+WHERE D_curr_crop = 'maize'
 ;
 ~~~~
 {: .sql}
@@ -56,10 +48,9 @@ where D_curr_crop = 'maize'
 and
 
 ~~~
--- Which farms have more than 12 in the Household
-select Id, B_no_membrs 
-from Farms
-where B_no_membrs > 12
+SELECT Id, B_no_membrs 
+FROM Farms
+WHERE B_no_membrs > 12
 ;
 ~~~~
 {: .sql}
@@ -76,11 +67,11 @@ Providing we are confident that both of the columns represent the household (or 
 We write a `join` query like this:
 
 ~~~
-select a.Id, a.B_no_membrs,
+SELECT a.Id, a.B_no_membrs,
        b.Id, b.D_curr_crop
-from Farms as a
-join Crops as b
-on a.Id = b.Id and a.B_no_membrs > 12 and b.D_curr_crop = 'maize'
+FROM Farms as a
+JOIN Crops as b
+ON a.Id = b.Id and a.B_no_membrs > 12 AND b.D_curr_crop = 'maize'
 ;
 ~~~
 {: .sql}
@@ -112,11 +103,11 @@ When we run this query we get output like the following:
 > > 
 > > 
 > > ~~~
-> > select a.Id as Farms_Id, a.B_no_membrs,
+> > SELECT a.Id as Farms_Id, a.B_no_membrs,
 > >        b.Id as Crops_Id, b.plot_Id, b.D_curr_crop
-> > from Farms as a
-> > join Crops as b
-> > on a.Id = b.Id and a.B_no_membrs > 12 and b.D_curr_crop = 'maize'
+> > FROM Farms as a
+> > JOIN Crops as b
+> > ON a.Id = b.Id and a.B_no_membrs > 12 AND b.D_curr_crop = 'maize'
 > > ;
 > > ~~~
 > > {: .sql}
@@ -148,18 +139,15 @@ During the join process each row of the first with every row of the second and i
 tables is output. 
 
 Although typically the values being matched from the first table are a unique (Distinct) set of values, the values in the second table don't have
-to be unique. This is why in the results of our previous query there are two entries with Id 111. In the second table there are two records with Id 111 and so the record from the first table gets combined with both the records in 
-the second table and two records are output.
+to be unique. This is why in the results of our previous query there are two entries with Id 111. In the second table there are two records with Id 111 and so the record from the first table gets combined with both the records in the second table and two records are output.
 
 Because every Farm grows some crops, there will be at least one record for each Id output. I for whatever reason the was a Farm with no crops 
-then there would be no record output for that Farm Id. Similarly if there was an entry in the Crops table with an Id which didn't match any of the Ids in the Farms table, 
-then it would not be output. There is only an output record when the two columns have matching values.
+then there would be no record output for that Farm Id. Similarly if there was an entry in the Crops table with an Id which didn't match any of the Ids in the Farms table, then it would not be output. There is only an output record when the two columns have matching values.
 
 
 When a relational database is defined and the tables set up initially the relationship between the tables are already known, 
 they are part of the design of the overall database. Because of this it is possible to ensure when the data is added to the tables that there will be entries 
-in both tables which have matching values. At the very least you can prevent rows being added to the second table with a value in the column you intend to join on for which there 
-is no matching column in the first table.
+in both tables which have matching values. At the very least you can prevent rows being added to the second table with a value in the column you intend to join on for which there is no matching column in the first table.
 
 An inner join only returns rows where there is a match between the two columns. In most cases this will be all of the columns selected from the first table and 0,1 or more columns selected from the second table. 
 
@@ -182,8 +170,7 @@ In SQLite only the `Inner join`, the `Left Outer join` and the `Cross join` are 
 
 ## Using different join types in analysing your data
 
-In many cases the data you have in your tables may have come from disparate sources, in that they do not form part of a **planned** relational database. It has been 
-your decision to bring together (join) the data in the tables. 
+In many cases the data you have in your tables may have come from disparate sources, in that they do not form part of a **planned** relational database. It has been your decision to bring together (join) the data in the tables. 
 
 In order to do this at all you must be confident that the tables of data do have columns which have a common set of values that you can join on.
 
@@ -201,11 +188,11 @@ To do this you will want to use a `Full outer join` or in the case of SQLite a `
 The query below is similar to our original join except that we are now joining with the crops_rice table and we have dropped the additional criteria.
 
 ~~~
-select a.Id as Farms_Id, a.B_no_membrs,
+SELECT a.Id as Farms_Id, a.B_no_membrs,
        b.Id as Crops_Id, b.D_curr_crop
-from Farms as a
-left outer join Crops_rice as b
-on a.Id = b.Id 
+FROM Farms AS a
+LEFT OUTER JOIN Crops_rice as b
+ON a.Id = b.Id 
 ~~~
 {: .sql}
 
@@ -231,13 +218,13 @@ commonly done.
 Our new query now looks like this:
 
 ~~~
-select a.Id as Farms_Id, a.B_no_membrs,
-       b.Id , b.plot_id as plot_id, b.D02_total_plot,
-       c.Id as Crops_Id, c.plot_Id as crops_plot_id, c.D_curr_crop
-from Farms as a
-join Plots as b
-join Crops  as c
-on a.Id = b.Id and ( b.Id = c.Id and b.plot_id = c.plot_id) and a.B_no_membrs > 12 and c.D_curr_crop = 'maize'
+SELECT a.Id AS Farms_Id, a.B_no_membrs,
+       b.Id , b.plot_id AS plot_id, b.D02_total_plot,
+       c.Id as Crops_Id, c.plot_Id AS crops_plot_id, c.D_curr_crop
+FROM Farms AS a
+JOIN Plots AS b
+JOIN Crops AS c
+ON a.Id = b.Id and ( b.Id = c.Id AND b.plot_id = c.plot_id) AND a.B_no_membrs > 12 AND c.D_curr_crop = 'maize'
 ;
 ~~~
 {: .sql}
@@ -262,14 +249,14 @@ The results look like this:
 > > 
 > > 
 > > ~~~
-> > select a.Id as Farms_Id, 
-> >        sum(b.D02_total_plot) as total_planted,
+> > SELECT a.Id AS Farms_Id, 
+> >        SUM(b.D02_total_plot) AS total_planted,
 > >        c.D_curr_crop
-> > from Farms as a
-> > join Plots as b
-> > join Crops  as c
-> > on a.Id = b.Id and ( b.Id = c.Id and b.plot_id = c.plot_id) and a.B_no_membrs > 12 and c.D_curr_crop = 'maize'
-> > group by a.Id, c.D_curr_crop
+> > FROM Farms AS a
+> > JOIN Plots AS b
+> > JOIN Crops AS c
+> > ON a.Id = b.Id AND ( b.Id = c.Id AND b.plot_id = c.plot_id) AND a.B_no_membrs > 12 AND c.D_curr_crop = 'maize'
+> >GROUP BY a.Id, c.D_curr_crop
 > > ;
 > > ~~~
 > > {: .sql}
