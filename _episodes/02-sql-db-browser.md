@@ -1,6 +1,6 @@
 ---
 title: "Using DB Browser for SQLite"
-teaching: 10
+teaching: 30
 exercises: 0
 questions:
 - "What does the DB Browser for SQLite allow me to do?"
@@ -8,17 +8,11 @@ objectives:
 - "Understand the layout of the DB Browser for SQLite and the key facilities that it provides"
 - "Connect to databases"
 - "Create new databases and tables"
-- "Run SQL queries"
-- "Export the results of queries"
 
 keypoints:
 - "The DB Browser for SQLite application allows you to connect to an existing database or create a new database"
-- "When connected to a database you can create new tables"
-- "When connected to a database you can write and run SQL queries and view the results"
-- "You can save the results of a query to a file"
+
 ---
-
-
 
 ## Setup
 
