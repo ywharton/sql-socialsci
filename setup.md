@@ -5,14 +5,14 @@ teaching: 15
 exercises: 10
 questions:
 - "How do I install the DB Browser application?"
-- "How do I install the SQLite Shell program?"
-- "How do I install the ODBC driver for SQLite?"
+- "EXTRA: How do I install the SQLite Shell program?"
+- "EXTRA: How do I install the ODBC driver for SQLite?"
 objectives:
 - "Install the Firefox SQLite plugin "
 - "Invoke the Firefox SQLite plugin"
-- "Install the SQLite Shell program"
-- "Invoke the SQLite Shell program"
-- "Install the ODBC driver"
+- "Install the SQLite Shell program (Extra)"
+- "Invoke the SQLite Shell program (Extra)"
+- "Install the ODBC driver (Extra)"
 keypoints:
 - "Both the DB Browser application and the SQLite tools can be directly downloaded from the Internet"
 - "The DB Browser application is a standard windows program"
@@ -21,14 +21,18 @@ keypoints:
 ---
 ## Download files
 
-You will need these two files:
+You will need these four files:
 1. Pre-populated SQLite database: [SQL_SAFI.sqlite](https://datacarpentry.org/sql-socialsci/data/SQL_SAFI.sqlite)
 2. SAFI Farms table as a CSV file: [SAFI_farms.csv](https://datacarpentry.org/sql-socialsci/data/SAFI_farms.csv)
+3. SAFI crops table as a CSV file: [SAFI_crops.csv](https://datacarpentry.org/sql-socialsci/data/SAFI_crops.csv)
+4. SAFI rice table as a CSV file: [SAFI_rice.csv](https://datacarpentry.org/sql-socialsci/data/SAFI_rice.csv)
 
 ## Installing DB Browser for SQLite 
+University of Auckland researchers can install the software using the Software Centre application (Windows) or the Self Service application (for MAC). 
 
 The software can be downloaded from the [DB Browser](http://sqlitebrowser.org/) site
 From the front page you can select the version you require. There are specific downloads for Windows and Mac users. For various Linux distributions there are detailed instructions at the bottom of the page.
+
 
 ![DB Browser install](./fig/DB_Browser_install_1.png)
 
@@ -42,7 +46,7 @@ It does not create an icon on the desktop. To explicitly launch the application 
 
 ![DB Browser run](./fig/DB_Browser_install_2.png)
 
-## Install the SQLite Shell program
+## EXTRA Install the SQLite Shell program
 
 The SQLite shell can be downloaded from [here](https://sqlite.org/download.html). There are versions available for Linux, Mac and Windows. As I have a Windows machine I will download the Windows version. You should download the version appropriate to your machine. Note that MacOS already have sqlite installed so you can skip this section.
 
@@ -53,7 +57,7 @@ The download is a .zip file. You need to unzip the file and store the contents (
 You may however like to add the folder location to your PATH environment variable so that you can call sqlite3 from any command prompt.
 
 
-## Invoke the SQLite Shell program
+## EXTRA Invoke the SQLite Shell program
 
 You invoke the SQLite Shell from the commandline. Remember that the program is sqlite3 and you must have added the folder name to your envirnment PATH or explicitly navigated to the folder before trying to run the program.
 
@@ -61,7 +65,7 @@ You do not need to specify any parameters, connection to a databse can be done f
 
 ![Launch SQLite shell](./fig/SQL_01_invoke_shell.png)
 
-## Installing the SQLite ODBC connector
+## EXTRA Installing the SQLite ODBC connector
 
 The SQLIte main site at https://sqlite.org/ does not provide a download for an ODBC connector. A Google search will provide other sites that do. One freely available SQLite ODBC connector is available at http://www.ch-werner.de/sqliteodbc/. You should download the sqliteodbc.exe file. The file is a self contained Windows installer which you can run by double clicking it. You will however need Admin rights on the machine to perform the install. 
 
