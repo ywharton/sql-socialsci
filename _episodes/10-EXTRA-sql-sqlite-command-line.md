@@ -1,5 +1,5 @@
 ---
-title: "The SQLite command line"
+title: "EXTRA: The SQLite command line"
 teaching: 15
 exercises: 10
 questions:
