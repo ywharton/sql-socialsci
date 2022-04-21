@@ -23,9 +23,9 @@ keypoints:
 
 You will need these four files:
 1. Pre-populated SQLite database: [SQL_SAFI.sqlite](https://datacarpentry.org/sql-socialsci/data/SQL_SAFI.sqlite)
-2. SAFI Farms table as a CSV file: [SAFI_farms.csv](https://datacarpentry.org/sql-socialsci/data/SAFI_farms.csv)
-3. SAFI crops table as a CSV file: [SAFI_crops.csv](https://datacarpentry.org/sql-socialsci/data/SAFI_crops.csv)
-4. SAFI rice table as a CSV file: [SAFI_rice.csv](https://datacarpentry.org/sql-socialsci/data/SAFI_rice.csv)
+2. SAFI Farms table as a CSV file: [SAFI_farms.csv](./data/SAFI_farms.csv)
+3. SAFI crops table as a CSV file: [SAFI_crops.csv](./data/SAFI_crops.csv)
+4. SAFI rice table as a CSV file: [SAFI_rice.csv](./data/SAFI_rice.csv)
 
 ## Installing DB Browser for SQLite 
 University of Auckland researchers can install the software using the Software Centre application (Windows) or the Self Service application (for MAC). 
@@ -45,6 +45,9 @@ By default the application is launched automatically when the installation is co
 It does not create an icon on the desktop. To explicitly launch the application after installing it, use the windows button (bottom left of screen) and type in ‘DB Browser’ in the search bar and selecting the application when it appears.
 
 ![DB Browser run](./fig/DB_Browser_install_2.png)
+
+## EXTRA EPISODE Installation - not needed for the lesson
+The installs below are not required for the data carpentry training session but are available for those who wish to do the EXTRA episodes (9 and 10) on their own.
 
 ## EXTRA Install the SQLite Shell program
 
