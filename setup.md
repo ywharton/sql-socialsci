@@ -25,7 +25,7 @@ You will need these four files:
 1. Pre-populated SQLite database: [SQL_SAFI.sqlite](https://datacarpentry.org/sql-socialsci/data/SQL_SAFI.sqlite)
 2. SAFI Farms table as a CSV file: [SAFI_farms.csv](./data/SAFI_farms.csv)
 3. SAFI crops table as a CSV file: [SAFI_crops.csv](./data/SAFI_crops.csv)
-4. SAFI rice table as a CSV file: [SAFI_rice.csv](./data/SAFI_rice.csv)
+4. SAFI plots table as a CSV file: [SAFI_plots.csv](./data/SAFI_plots.csv)
 
 ## Installing DB Browser for SQLite 
 University of Auckland researchers can install the software using the Software Centre application (Windows) or the Self Service application (for MAC). 
