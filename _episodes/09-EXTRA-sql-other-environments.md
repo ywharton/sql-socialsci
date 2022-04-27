@@ -1,5 +1,5 @@
 ---
-title: "EXTRA: Using database tables in other environments"
+title: "09 EXTRA: Using database tables in other environments"
 teaching: 15
 exercises: 0
 questions:

@@ -1,5 +1,5 @@
 ---
-title: "Saving queries for future use - creating views"
+title: "07 Saving queries for future use - creating views"
 teaching: 20
 exercises: 10
 questions:

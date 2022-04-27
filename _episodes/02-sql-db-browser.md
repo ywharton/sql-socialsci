@@ -1,5 +1,5 @@
 ---
-title: "Using DB Browser for SQLite"
+title: "02 Using DB Browser for SQLite"
 teaching: 30
 exercises: 0
 questions:

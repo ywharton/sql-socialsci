@@ -1,5 +1,5 @@
 ---
-title: "Accessing Data with Queries"
+title: "03 Accessing Data with Queries"
 teaching: 30
 exercises: 5
 questions:

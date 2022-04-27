@@ -1,5 +1,5 @@
 ---
-title: "Aggregations"
+title: "06 Aggregations"
 teaching: 10
 exercises: 10
 questions:

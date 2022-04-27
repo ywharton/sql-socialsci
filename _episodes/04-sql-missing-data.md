@@ -1,5 +1,5 @@
 ---
-title: "Missing Data"
+title: "04 Missing Data"
 teaching: 10
 exercises: 0
 questions:
