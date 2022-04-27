@@ -69,9 +69,9 @@ We write a `join` query like this:
 ~~~
 SELECT a.Id, a.B_no_membrs,
        b.Id, b.D_curr_crop
-FROM Farms as a
-JOIN Crops as b
-ON a.Id = b.Id and a.B_no_membrs > 12 AND b.D_curr_crop = 'maize'
+FROM Farms AS a
+JOIN Crops AS b
+ON a.Id = b.Id AND a.B_no_membrs > 12 AND b.D_curr_crop = 'maize'
 ;
 ~~~
 {: .sql}
@@ -103,11 +103,11 @@ When we run this query we get output like the following:
 > > 
 > > 
 > > ~~~
-> > SELECT a.Id as Farms_Id, a.B_no_membrs,
-> >        b.Id as Crops_Id, b.plot_Id, b.D_curr_crop
-> > FROM Farms as a
-> > JOIN Crops as b
-> > ON a.Id = b.Id and a.B_no_membrs > 12 AND b.D_curr_crop = 'maize'
+> > SELECT a.Id AS Farms_Id, a.B_no_membrs,
+> >        b.Id AS Crops_Id, b.plot_Id, b.D_curr_crop
+> > FROM Farms AS a
+> > JOIN Crops AS b
+> > ON a.Id = b.Id AND a.B_no_membrs > 12 AND b.D_curr_crop = 'maize'
 > > ;
 > > ~~~
 > > {: .sql}
@@ -188,10 +188,10 @@ To do this you will want to use a `Full outer join` or in the case of SQLite a `
 The query below is similar to our original join except that we are now joining with the crops_rice table and we have dropped the additional criteria.
 
 ~~~
-SELECT a.Id as Farms_Id, a.B_no_membrs,
-       b.Id as Crops_Id, b.D_curr_crop
+SELECT a.Id AS Farms_Id, a.B_no_membrs,
+       b.Id AS Crops_Id, b.D_curr_crop
 FROM Farms AS a
-LEFT OUTER JOIN Crops_rice as b
+LEFT OUTER JOIN Crops_rice AS b
 ON a.Id = b.Id 
 ~~~
 {: .sql}
@@ -220,7 +220,7 @@ Our new query now looks like this:
 ~~~
 SELECT a.Id AS Farms_Id, a.B_no_membrs,
        b.Id , b.plot_id AS plot_id, b.D02_total_plot,
-       c.Id as Crops_Id, c.plot_Id AS crops_plot_id, c.D_curr_crop
+       c.Id AS Crops_Id, c.plot_Id AS crops_plot_id, c.D_curr_crop
 FROM Farms AS a
 JOIN Plots AS b
 JOIN Crops AS c
