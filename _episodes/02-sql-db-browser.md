@@ -124,20 +124,24 @@ To create relationships between tables later on, it is important to designate on
 ## Import
 Before we get started with writing our own queries, we'll create our own database - something many of you are likely to need to do.  We'll be creating our database from the three `csv` files we downloaded earlier.  
 
+__plots__  
+* Contains plot information. 
+* (9 fields, 1044 records)
+* Field names: `Id`, `plot_Id`, `D01_curr_plot`, `D02_total_plot`, `D03_unit_land`, `D03_unit_land_other`, `D04_crops_harvsted`, `D04_crops_harvsted_other`,`D_crops_count`
+
+__crops__  
+* Contains various crops and associated plot information. The table also associates crops referenced in the 'crops' table by the `crop_Id` field.
+* (6 fields, 844 records)
+* Field names: `Id`, `plot_Id`, `crop_Id`, `D05_times`, `D_curr_crop`, `D_repeat_times_count`
+
 __farms__  
 * Contains individual farm survey information
 * (61 fields, 350 records)
 * Field names: `id`, `Country`, `A01_interview_date`, `A03_quest_no`, `A04_start` , `A05_end`, `A06_province`, `A07_district`, `A08_ward`, `A09_village`, `A11_years_farm`, `A12_agr_assoc`, `B_no_membrs`, `B_members_count`, `B11_remittance_money`, `B16_years_liv`, `B17_parents_liv`, `B18_sp_parents_liv`, `B19_grand_liv`, `B20_sp_grand_liv`, `C01_respondent_roof_type`, `C02_respondent_wall_type`, `C03_respondent_floor_type`, `C04_window_type`, `C05_buildings_in_compound`, `C06_rooms`, `C07_other_buildings`, `D_no_plots`, `D_plots_count`, `E01_water_use`, `E_no_group_count` , `E_yes_group_count`, `E17_no_enough_water`, `E18_months_no_water`, `E19_period_use`, `E20_exper_other`, `E21_other_meth` , `E22_res_change`, `E23_memb_assoc`, `E24_resp_assoc`, `E25_fees_water`, `E26_affect_conflicts`, `F04_need_money`, `F05_money_source`, `F05_money_source_other`, `F08_emply_lab`, `F09_du_labour`, `F10_liv_owned`, `F10_liv_owned_other`, `F_liv_count`, `F12_poultry`, `F13_du_look_aftr_cows`, `F14_items_owned`, `G01_no_meals`, `G02_months_lack_food`, `G03_no_food_mitigation`, `gps:Latitude`, `gps:Longitude`, `gps:Altitude`, `gps:Accuracy`, `instanceID`
 
-__plots__  
-* Contains various pcrops and associated plot information. The table also associates crops referenced in the 'crops' table by the `crop_Id` field and to the farms table by the `Id` field.
-* (6 fields, 844 records)
-* Field names: `Id`, `plot_Id`, `crop_Id`, `D05_times`, `D_curr_crop`, `D_repeat_times_count`
 
-__crops__  
-* Contains crop information linked to ploys and the survey. 
-* (9 fields, 1044 records)
-* Field names: `Id`, `plot_Id`, `D01_curr_plot`, `D02_total_plot`, `D03_unit_land`, `D03_unit_land_other`, `D04_crops_harvsted`, `D04_crops_harvsted_other`,`D_crops_count`
+
+
 
 
 Close the currently open database (**File > Close Database**) and then follow these instructions:
@@ -147,8 +151,8 @@ Close the currently open database (**File > Close Database**) and then follow th
     - Give a name and click Save to create the database in the opened folder
     - In the "Edit table definition" window that pops up, click cancel as we will be importing tables, not creating them from scratch
 2. Select **File >> Import >> Table from CSV file...**
-3. Choose `farms.csv` from the data folder we downloaded and click **Open**.
-4. Give the table a name that matches the file name (`farms`), or use the default
+3. Choose `plots.csv` from the data folder we downloaded and click **Open**.
+4. Give the table a name that matches the file name (`plots`), or use the default
 5. If the first row has column headings, be sure to check the box next to "Column names in first line".
 6. Be sure the field separator and quotation options are correct. If you're not sure which options are correct, test some of the options until the preview at the bottom of the window looks right.
 7. Press **OK**, you should subsequently get a message that the table was imported.
@@ -159,7 +163,7 @@ Close the currently open database (**File > Close Database**) and then follow th
 
 > ## Challenge
 >
-> - Import the `plots` and `crops` tables
+> - Import the `crops` and `farms` tables
 {: .challenge}
 
 You can also use this same approach to append new fields to an existing table.
