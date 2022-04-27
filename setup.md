@@ -46,6 +46,24 @@ It does not create an icon on the desktop. To explicitly launch the application 
 
 ![DB Browser run](./fig/DB_Browser_install_2.png)
 
+### SqliteOnline
+
+This step is optional. If you are completing the tutorial with DB Browser for SQLite, you won't need to use SqliteOnline separately. If you are experiencing trouble with DB Browser for SQLite and/or SQLite or if you would like to run SQL commands online via a browser (nothing to install), then visit [https://sqliteonline.com/](https://sqliteonline.com/).
+
+#### Open the database file in SqliteOnline
+
+1. Choose "File" > "Open DB" from the SqliteOnline menu bar.
+2. Navigate to where you saved the doaj-article-sample folder and/or files. For example, your Desktop.
+3. Select "doaj-article-sample.db".
+
+#### Open the SQL file in SqliteOnline
+
+1. Choose "File > "Text-SQL" > "Open SQL" from the SqliteOnline menu bar.
+2. Navigate to where you saved the doaj-article-sample folder and/or files. For example, your Desktop.
+3. Select "doaj-article-sample.db.sql". 
+4. You should see the SQL in a text box below the home icon.
+5. Click the "Run" button in the SqliteOnline menu bar.
+
 ## EXTRA EPISODE Installation - not needed for the lesson
 The installs below are not required for the data carpentry training session but are available for those who wish to do the EXTRA episodes (9 and 10) on their own.
 
