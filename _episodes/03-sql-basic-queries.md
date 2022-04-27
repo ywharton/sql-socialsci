@@ -126,7 +126,7 @@ Using the farms table we can obtain a list of all the different vlaues of the 'A
 
 If we select more than one column, then the distinct pairs of values are returned
 
-    SELECT DISTINCT year, species_id
+    SELECT DISTINCT A06_province, A07_district
     FROM Farms;
 
 ## Filtering - using the `Where` clause
