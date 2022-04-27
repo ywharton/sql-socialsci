@@ -7,6 +7,8 @@ title: Instructors' Notes
 There is a seperate file for the setiup instructions for installing the various component used in this lesson. [setup]({{ page.root }}/{% link setup.md %})
 
 * The DB Browser application
+
+For EXTRA SESSIONS
 * SQLite Shell program
 * SQLite ODBC connector
 
@@ -23,28 +25,28 @@ The SN7577.SQLite database file will need to be downloaded to the local machine 
 
 ## The Lessons
 
-If time is short, lessons 8 and 10 could be omitted as they don't intoduce any new SQL concepts.
+If time is short, lessons 9 and 10 could be omitted as they don't intoduce any new SQL concepts.
 
-[What is a Relational database](../_episodes/01-relational-database.md)
+[What is a Relational database](../_episodes/01-sql-relational-database.md)
 
 Explains terms like Relational database, Table, Datatype, Keys, Null
 
-[Using DB Browser](../_episodes/02-db-browser.md)
+[Using DB Browser](../_episodes/02-sql-db-browser.md)
 
-This episode is a tour of the plugin and covers how to connect to an existing database, how to run a simple query and see the results.
+This episode is a tour of the plugin and covers how to connect to an existing database, how to run a simple query and see the results and create a database from a series of csv files.
 
-[The Select statement](../_episodes/03-select.md)
+[The Select statement](../_episodes/03-sql-basic-queries.md)
 
 SQL is explained and the different types of statements types included in SQL.
 The basic components (select, from, where and sort) of the select statement are covered using the SN7577 table
 
-[Missing data](../_episodes/04-missing-data.md)
+[Missing data](../_episodes/04-sql-missing-data.md)
 
 In addition to NULL and how it is displayed in the plugin and relating it back to the actual dataset used to create the table,
 There is a discussion of what else in the data could be a representation of missing data. e.g. -99 or -1.
 Making use of the available data dictionary information.
 
-[Creating new columns](../_episodes/05-creating-new-columns.md)
+[Creating new columns](../_episodes/05-sql-creating-new-columns.md)
 
 This episode cover the creation of new columns as part of a query.
 New columns are created from existing columns using builtin functions.
@@ -54,13 +56,13 @@ The case statement is a s close as we get to more traditional programming, but i
 The use of Alias' are covered, in this case as a convenience rather than a necessity as they are in joins.
 
 
-[Aggregations](../_episodes/06-aggregation.md)
+[Aggregations](../_episodes/06-sql-aggregation.md)
 
 The basic builtin aggregation functions and the `distinct` keyword are covered.
 The use of the `group by` clause is explained as a way of providing more meaningful summaries across a table.
 The `having` clause is introduced and compared to the `where` clause.
 
-[Creating tables and views](../_episodes/07-creating-tables-views.md)
+[Creating tables and views](../_episodes/07-sql-creating-tables-views.md)
 
 The various ways of creating tables are covered; From scratch, based on a query and by reading data from a file.
 Adding data to table is demonstrated for the table created from scratch.
@@ -69,7 +71,24 @@ The SQLite plugin is used to read the datasets which will need to have been copi
 All of the options in the plugin wizard are explained.
 Creating views, the close relationship to tables and guidance on naming views is covered.
 
-[The SQLite command line](../_episodes/08_sqlite-command-lines.md)
+
+[Joins](../_episodes/08-sql-joins.md)
+
+The need for table joins is discussed
+The different types of joins is discussed and why you may need to do more than just inner joins to investigate your data.
+There are examples of usingthe `join` and `on` SQL syntax.
+There is more discussion on Alias'.
+
+[Using database tables in other environments](../_episodes/09-EXTRA-other-environments.md)
+
+The episode requires that the ODBC driver has been installed.  It could be done as an Instructor demo only, but obviously that is not so much fun for the students.
+The purpose and use of connection strings is covered
+There is a detailed demonstration of using ODBC from Excel to connect to the SN7577 database. It doesn't matter what table is used.
+There are code only examples from R and Python. The aim is to emphasise the connection process and sending the query for execution rather than the code itself.
+The code could be run in appropriate environments, but the database location would have to be changed.
+
+
+[The SQLite command line](../_episodes/10-EXTRA-sqlite-command-lines.md)
 
 Instructions on starting the command line shell are given. It is assumed that the setup instructions have already been completed.
 If the sqlite3.exe has not been placed in the users path, then they eill either need to specify the full path to the executable or specify the full path to the database file when they try to connect. It is probably easier to ensure that the executable is in the path.
@@ -79,18 +98,21 @@ Use of 'dot' commands to change the output format are covered.
 The use of 'dot' commands to save the output to a file is covered.
 How to automate a script is covered.
 
+## Issues with students running DB Browser
+### SqliteOnline
 
-[Joins](../_episodes/09-joins.md)
+This step is optional. If you are completing the tutorial with DB Browser for SQLite, you won't need to use SqliteOnline separately. If you are experiencing trouble with DB Browser for SQLite and/or SQLite or if you would like to run SQL commands online via a browser (nothing to install), then visit [https://sqliteonline.com/](https://sqliteonline.com/).
 
-The need for table joins is discussed
-The different types of joins is discussed and why you may need to do more than just inner joins to investigate your data.
-There are examples of usingthe `join` and `on` SQL syntax.
-There is more discussion on Alias'.
+#### Open the database file in SqliteOnline
 
-[Using database tables in other environments](../_episodes/10-other-environments.md)
+1. Choose "File" > "Open DB" from the SqliteOnline menu bar.
+2. Navigate to where you saved the doaj-article-sample folder and/or files. For example, your Desktop.
+3. Select "doaj-article-sample.db".
 
-The episode requires that the ODBC driver has been installed.  It could be done as an Instructor demo only, but obviously that is not so much fun for the students.
-The purpose and use of connection strings is covered
-There is a detailed demonstration of using ODBC from Excel to connect to the SN7577 database. It doesn't matter what table is used.
-There are code only examples from R and Python. The aim is to emphasise the connection process and sending the query for execution rather than the code itself.
-The code could be run in appropriate environments, but the database location would have to be changed.
+#### Open the SQL file in SqliteOnline
+
+1. Choose "File > "Text-SQL" > "Open SQL" from the SqliteOnline menu bar.
+2. Navigate to where you saved the doaj-article-sample folder and/or files. For example, your Desktop.
+3. Select "doaj-article-sample.db.sql". 
+4. You should see the SQL in a text box below the home icon.
+5. Click the "Run" button in the SqliteOnline menu bar.
