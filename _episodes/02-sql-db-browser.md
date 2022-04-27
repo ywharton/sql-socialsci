@@ -106,12 +106,20 @@ To summarize:
 
 ## Database Design
 
+Database design involves a model or plan developed to determine how the data is stored, organized and manipulated. The design addresses what data will be stored, how they will be classified, and the interrelationships between the data across different tables in the database.
 * Every row-column combination contains a single *atomic* value, i.e., not containing parts we might want to work with separately.
 * One field per type of information
 * No redundant information
     * Split into separate tables with one table per class of information
     * Needs an identifier in common between tables – shared column - to reconnect (known as a *foreign key*).
 
+## Terminology
+
+In the Introduction to SQL lesson, we introduced the terms "fields", "records", and "values". These terms are commonly used in databases while the "columns", "rows", and "cells" terms are more common in spreadsheets. Fields store a single kind of information (text, integers, etc.) related to one topic (country, interview date, province), while records are a set of fields containing specific values related to one item in your database (a farm, a plot, a crop).
+
+To design a database, we must first decide what kinds of things we want to represent as tables. A table is the physical manifestation of a kind of "entity". An entity is the conceptual representation of the thing we want to store informtation about in the database, with each row containing information about one entity. An entity has "attributes" that describe it, represented as fields. For example, an article or a journal is an entity. Attributes would be things like the Country, province or which would appear as fields.  
+
+To create relationships between tables later on, it is important to designate one column as a primary key. A primary key, often designated as PK, is one attribute of an entity that distinguishes it from the other entities (or records) in your table. The primary key must be unique for each row for this to work. A common way to create a primary key in a table is to make an 'id' field that contains an auto-generated integer that increases by 1 for each new record. This will ensure that your primary key is unique. 
 
 ## Import
 
@@ -133,8 +141,6 @@ __crops__
 * Field names: `Id`, `plot_Id`, `D01_curr_plot`, `D02_total_plot`, `D03_unit_land`, `D03_unit_land_other`, `D04_crops_harvsted`, `D04_crops_harvsted_other`,`D_crops_count`
 
 
-
-
 Close the currently open database (**File > Close Database**) and then follow these instructions:
 
 1. Start a New Database
@@ -149,7 +155,7 @@ Close the currently open database (**File > Close Database**) and then follow th
 7. Press **OK**, you should subsequently get a message that the table was imported.
 9. Back on the Database Structure tab, you should now see the table listed. Right click on the table name and choose **Modify Table**, or click on the **Modify Table** button just under the tabs and above the table list.
 10. Click **Save** if asked to save all pending changes.
-11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table below (this includes fields from the `plots` and `crops` tables also when they are added).
+11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table below.
 12. Finally, click **OK** one more time to confirm the operation. Then click the **Write Changes** button to save the database.
 
 > ## Challenge
@@ -158,6 +164,7 @@ Close the currently open database (**File > Close Database**) and then follow th
 {: .challenge}
 
 You can also use this same approach to append new fields to an existing table.
+
 
 ## Adding fields to existing tables
 
