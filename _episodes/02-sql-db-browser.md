@@ -71,11 +71,29 @@ To open the database in DB Browser do the following;
 1. Click on the 'Open Database' button in the toolbar.
 2. Navigate to where you have stored the database file on your local machine, select it and click 'Open'.
 
-You can see the table sin the database by looking at the left hand side of the screen under the 'Database Structure' tab. Here you will see a list under 'Tables'.  To see the contents of any table , click on it, and then click the 'Browse Data' next to the 'Database Structure'.  This will give us a view that we are used to - a copy of the table.  Hopefully this helps to show that a database is, in some sense, just a collection of tables, where there's some value in the tables that allows them to be connected to each other (the 'related' part of the 'relational database'). Also note there are options for 'New Record' and 'Delete Record'. As our interest is in analysing existing data not creating or deleting data, it is unlikely that you will want to use these options. 
+You can see the tables in the database by looking at the left hand side of the screen under the 'Database Structure' tab. Here you will see a list under 'Tables'.  To see the contents of any table , click on it, and then click the 'Browse Data' next to the 'Database Structure'.  This will give us a view that we are used to - a copy of the table.  Hopefully this helps to show that a database is, in some sense, just a collection of tables, where there's some value in the tables that allows them to be connected to each other (the 'related' part of the 'relational database'). Also note there are options for 'New Record' and 'Delete Record'. As our interest is in analysing existing data not creating or deleting data, it is unlikely that you will want to use these options. 
 
-The 'Database Structure' tab also provides some metadata about each table. If you click on the down arrow next to a table name, you will see information about the columns, which in databases are referred to as 'fields', and their assigned data types (the rows of a database table are called *records*). Each field contains one variety or type of data, often numbers or text. You can see in the XXX table that most fields contain numbers (BIGINT, or big integer, and FLOAT, or floating point numbers/decimals) while the XXX table is entirely made up of text fields.
+The 'Database Structure' tab also provides some metadata about each table. If you click on the down arrow next to a table name, you will see information about the columns, which in databases are referred to as 'fields', and their assigned data types (the rows of a database table are called *records*). Each field contains one variety or type of data, often numbers or text. You can see in the Plots table that most fields contain numbers (INTEGER, REAL, or floating point numbers/decimals and TEXT) while the Crops table is mostly made up of INTEGER fields.
 
-The "Execute SQL" tab is blank now - this is where we'll be typing our queries to retrieve information from the database tables.
+## A Note About Data Types
+
+The main data types that are used in SAFI database are `INTEGER` and `TEXT` which define what value the table column can hold. 
+
+
+## SQL Data Type Quick Reference
+
+Different database software/platforms have different names and sometimes different definitions of data types, so you'll need to understand the data types for any platform you are using.  The following table explains some of the common data types and how they are represented in SQLite; [more details available on the SQLite website](https://www.sqlite.org/datatype3.html).
+
+| Data type      | Details                                                                                 | Name in SQLite            |
+|:---------------|:----------------------------------------------------------------------------------------|:--------------------------|
+| boolean or binary | this variable type is often used to represent variables that can only have two values: yes or no, true or false.  |doesn't exist - need to use integer data type and values of 0 or 1.|
+| integer | sometimes called whole numbers or counting numbers.  Can be 1,2,3, etc., as well as 0 and negative whole numbers: -1,-2,-3, etc.|INTEGER|
+| float, real, or double | a decimal number or a floating point value.  The largest possible size of the number may be specified. |REAL|
+| text or string |and combination of numbers, letters, symbols.  Platforms may have different data types: one for variables with a set number of characters - e.g., a zip code or postal code, and one for variables with an open number of characters, e.g., an address or description variable. |TEXT|
+|date or datetime|depending on the platform, may represent the date and time or the number of days since a specified date.  This field often has a specified format, e.g., YYYY-MM-DD|doesn't exist - need to use built-in date and time functions and store dates in real, integer, or text formats.  See [Section 2.2 of SQLite documentation](https://www.sqlite.org/datatype3.html#date_and_time_datatype) for more details.
+| blob | a Binary Large OBject can store a large amount of data, documents, audio or video files.|BLOB|
+
+The "Execute SQL" tab is where we'll be typing our queries to retrieve information from the database tables.
 
 
 ![Table Actions](../fig/DB_Browser_run_3.png)
@@ -97,7 +115,27 @@ To summarize:
 
 ## Import
 
-Before we get started with writing our own queries, we'll create our own database.  We'll be creating this database from the three `csv` files we downloaded earlier.  Close the currently open database (**File > Close Database**) and then follow these instructions:
+Before we get started with writing our own queries, we'll create our own database.  We'll be creating this database from the three `csv` files we downloaded earlier.  
+
+__farms__  
+* Contains individual farm survey information
+* (61 fields, 350 records)
+* Field names: `id`, `Country`, `A01_interview_date`, `A03_quest_no`, `A04_start` , `A05_end`, `A06_province`, `A07_district`, `A08_ward`, `A09_village`, `A11_years_farm`, `A12_agr_assoc`, `B_no_membrs`, `B_members_count`, `B11_remittance_money`, `B16_years_liv`, `B17_parents_liv`, `B18_sp_parents_liv`, `B19_grand_liv`, `B20_sp_grand_liv`, `C01_respondent_roof_type`, `C02_respondent_wall_type`, `C03_respondent_floor_type`, `C04_window_type`, `C05_buildings_in_compound`, `C06_rooms`, `C07_other_buildings`, `D_no_plots`, `D_plots_count`, `E01_water_use`, `E_no_group_count` , `E_yes_group_count`, `E17_no_enough_water`, `E18_months_no_water`, `E19_period_use`, `E20_exper_other`, `E21_other_meth` , `E22_res_change`, `E23_memb_assoc`, `E24_resp_assoc`, `E25_fees_water`, `E26_affect_conflicts`, `F04_need_money`, `F05_money_source`, `F05_money_source_other`, `F08_emply_lab`, `F09_du_labour`, `F10_liv_owned`, `F10_liv_owned_other`, `F_liv_count`, `F12_poultry`, `F13_du_look_aftr_cows`, `F14_items_owned`, `G01_no_meals`, `G02_months_lack_food`, `G03_no_food_mitigation`, `gps:Latitude`, `gps:Longitude`, `gps:Altitude`, `gps:Accuracy`, `instanceID`
+
+__plots__  
+* Contains various pcrops and associated plot information. The table also associates crops referenced in the 'crops' table by the `crop_Id` field and to the farms table by the `Id` field.
+* (6 fields, 844 records)
+* Field names: `Id`, `plot_Id`, `crop_Id`, `D05_times`, `D_curr_crop`, `D_repeat_times_count`
+
+__crops__  
+* Contains crop information linked to ploys and the survey. 
+* (9 fields, 1044 records)
+* Field names: `Id`, `plot_Id`, `D01_curr_plot`, `D02_total_plot`, `D03_unit_land`, `D03_unit_land_other`, `D04_crops_harvsted`, `D04_crops_harvsted_other`,`D_crops_count`
+
+
+
+
+Close the currently open database (**File > Close Database**) and then follow these instructions:
 
 1. Start a New Database
     - Click the **New Database** button
@@ -111,7 +149,7 @@ Before we get started with writing our own queries, we'll create our own databas
 7. Press **OK**, you should subsequently get a message that the table was imported.
 9. Back on the Database Structure tab, you should now see the table listed. Right click on the table name and choose **Modify Table**, or click on the **Modify Table** button just under the tabs and above the table list.
 10. Click **Save** if asked to save all pending changes.
-11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table below (this includes fields from the `plots` and `crops` tables also).
+11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table below (this includes fields from the `plots` and `crops` tables also when they are added).
 12. Finally, click **OK** one more time to confirm the operation. Then click the **Write Changes** button to save the database.
 
 > ## Challenge
@@ -125,33 +163,6 @@ You can also use this same approach to append new fields to an existing table.
 
 1. Go to the "Database Structure" tab, right click on the table you'd like to add data to, and choose **Modify Table**, or click on the **Modify Table** just under the tabs and above the table.
 2. Click the **Add Field** button to add a new field and assign it a data type.
-
-## <a name="datatypes"></a> Data types
-
-| Data type                          | Description                                                                                              |
-|------------------------------------|:---------------------------------------------------------------------------------------------------------|
-| CHARACTER(n)                       | Character string. Fixed-length n                                                                         |
-| VARCHAR(n) or CHARACTER VARYING(n) | Character string. Variable length. Maximum length n                                                      |
-| BINARY(n)                          | Binary string. Fixed-length n                                                                            |
-| BOOLEAN                            | Stores TRUE or FALSE values                                                                              |
-| VARBINARY(n) or BINARY VARYING(n)  | Binary string. Variable length. Maximum length n                                                         |
-| INTEGER(p)                         | Integer numerical (no decimal).                                                                          |
-| SMALLINT                           | Integer numerical (no decimal).                                                                          |
-| INTEGER                            | Integer numerical (no decimal).                                                                          |
-| BIGINT                             | Integer numerical (no decimal).                                                                          |
-| DECIMAL(p,s)                       | Exact numerical, precision p, scale s.                                                                   |
-| NUMERIC(p,s)                       | Exact numerical, precision p, scale s. (Same as DECIMAL)                                                 |
-| FLOAT(p)                           | Approximate numerical, mantissa precision p. A floating number in base 10 exponential notation.          |
-| REAL                               | Approximate numerical                                                                                    |
-| FLOAT                              | Approximate numerical                                                                                    |
-| DOUBLE PRECISION                   | Approximate numerical                                                                                    |
-| DATE                               | Stores year, month, and day values                                                                       |
-| TIME                               | Stores hour, minute, and second values                                                                   |
-| TIMESTAMP                          | Stores year, month, day, hour, minute, and second values                                                 |
-| INTERVAL                           | Composed of a number of integer fields, representing a period of time, depending on the type of interval |
-| ARRAY                              | A set-length and ordered collection of elements                                                          |
-| MULTISET                           | A variable-length and unordered collection of elements                                                   |
-| XML                                | Stores XML data                                                                                          |
 
 
 ## <a name="datatypediffs"></a> SQL Data Type Quick Reference
