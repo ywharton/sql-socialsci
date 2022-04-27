@@ -38,8 +38,7 @@ ORDER BY colnames
 Let's start by using the **farms** table. Here we have data on every individual farm. 
 
 Let’s write an SQL query that selects all of the columns in the farms table. SQL queries can be written in the box located under the "Execute SQL" tab. 
-Click on the right arrow above the query box to execute the query. (You can also use the keyboard shortcut "Cmd-Enter" on a Mac or "Ctrl-Enter" on a Windows machine to execute a query.) 
-The results are displayed in the box below your query. 
+
 If you want to display all of the columns in a table, use the wildcard *.
 
 ~~~ 
@@ -47,6 +46,11 @@ SELECT *
 FROM Farms;
 ~~~ 
 {: .sql}
+
+Click on the right arrow above the query box to execute the query.
+    (keyboard shortcut "Cmd-Enter"  - Mac or "Ctrl-Enter" - Windows machine to execute a query.) 
+
+The results are displayed in the box below your query. 
 
 We have capitalized the words SELECT and FROM because they are SQL keywords. SQL is case insensitive, but it helps for readability, and is good style.
 The '*' character acts as a wildcard meaning all of the columns but you cannot use it as a general wildcard.
@@ -89,12 +93,13 @@ LIMIT 10;
 
 > ## Exercise
 >
-> Write a query which returns the first 5 rows from the Farms table with only the columns Id, and B16 to B20.
+> > Write a query which returns the first 5 rows from the Farms table with only the columns Id, and B16 - B20 (B16_years_liv, B17_parents_liv, 
+> > B18_sp_parents_liv , B19_grand_liv, B20_sp_grand_liv).
 > 
 > > ## Solution
 > >  ~~~
 > > SELECT  Id
-> >       , B16_years_liv
+> >     , B16_years_liv
 > >     , B17_parents_liv
 > >     , B18_sp_parents_liv
 > >     , B19_grand_liv
@@ -115,15 +120,14 @@ Using the farms table we can obtain a list of all the different vlaues of the 'A
 
 ~~~
     SELECT DISTINCT A06_province
-    FROM surveys;
+    FROM Farms;
 ~~~
 > > {: .sql}
 
-If we select more than one column, then the distinct pairs of values are
-returned
+If we select more than one column, then the distinct pairs of values are returned
 
     SELECT DISTINCT year, species_id
-    FROM surveys;
+    FROM Farms;
 
 ## Filtering - using the `Where` clause
 
