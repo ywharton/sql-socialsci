@@ -117,13 +117,12 @@ Database design involves a model or plan developed to determine how the data is 
 
 In the Introduction to SQL lesson, we introduced the terms "fields", "records", and "values". These terms are commonly used in databases while the "columns", "rows", and "cells" terms are more common in spreadsheets. Fields store a single kind of information (text, integers, etc.) related to one topic (country, interview date, province), while records are a set of fields containing specific values related to one item in your database (a farm, a plot, a crop).
 
-To design a database, we must first decide what kinds of things we want to represent as tables. A table is the physical manifestation of a kind of "entity". An entity is the conceptual representation of the thing we want to store informtation about in the database, with each row containing information about one entity. An entity has "attributes" that describe it, represented as fields. For example, an article or a journal is an entity. Attributes would be things like the Country, province or which would appear as fields.  
+To design a database, we must first decide what kinds of things we want to represent as tables. A table is the physical manifestation of a kind of "entity". An entity is the conceptual representation of the thing we want to store informtation about in the database, with each row containing information about one entity. An entity has "attributes" that describe it, represented as fields. For example, a farm or a plot is an entity. Attributes would be things like the Country, or province which would appear as fields.  
 
 To create relationships between tables later on, it is important to designate one column as a primary key. A primary key, often designated as PK, is one attribute of an entity that distinguishes it from the other entities (or records) in your table. The primary key must be unique for each row for this to work. A common way to create a primary key in a table is to make an 'id' field that contains an auto-generated integer that increases by 1 for each new record. This will ensure that your primary key is unique. 
 
 ## Import
-
-Before we get started with writing our own queries, we'll create our own database.  We'll be creating this database from the three `csv` files we downloaded earlier.  
+Before we get started with writing our own queries, we'll create our own database - something many of you are likely to need to do.  We'll be creating our database from the three `csv` files we downloaded earlier.  
 
 __farms__  
 * Contains individual farm survey information
