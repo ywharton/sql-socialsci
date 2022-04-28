@@ -45,25 +45,6 @@ This sort of query provides us with a general view of the values for a particula
   
 `MIN` , `MAX` and `AVG` are builtin aggregate functions in SQLite (and any other SQL database system). There are many other aggregate functions included in SQL, for example SUM .
 
-> ## Challenge
->
-> Write a query that returns: XXXXXXXXXX
->
-> > ## Solution
-> > ~~~
-> > -- All animals
-> > SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)
-> > FROM surveys;
-> >
-> > -- Only weights between 5 and 10
-> > SELECT SUM(weight), AVG(weight), MIN(weight), MAX(weight)
-> > FROM surveys
-> > WHERE (weight > 5) AND (weight < 10);
-> > ~~~
-> > {: .sql}
-> {: .solution}
-{: .challenge}
-
 
 
 ## The `group by` clause to summarise data
@@ -97,8 +78,8 @@ GROUP BY A06_province, A07_district, A08_ward, A09_village
 {: .sql}
 
 > ## Exercise
-> Write a query which returns the min, max and avg number of years farmed as well as a count of the number of records involved
-> for the 'A11_years_farm' column for each village in the 'Nhamatanda' district.   
+> Write a query which returns the min, max and avg number of years farmed (A11_years_farm) as well as a count of the number of records involved
+> for the 'A11_years_farm' column for each village (A09_village) in the 'Nhamatanda' district (0A7_district) using the Farms table.   
 >
 >
 > > ## Solution
