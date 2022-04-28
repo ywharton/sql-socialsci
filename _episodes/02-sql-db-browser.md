@@ -59,7 +59,9 @@ We will make a couple of initial changes to the layout of the screen. These will
 
 ![Data Browser Preferences](../fig/DB_Browser_run_2.png)
 
-Towards the bottom there is a section dealing with Field colors. You will see three bars below the word Text, to the right there are in fact three invisible bars for the Background. Click in the area for the Background color for NULL. A colour selector window will open, select Red. The bar will turn Red. This is now the default background cell colour that will be used to display NULL values in you tables. We will discuss the meaning of NULL values in a table in a later episode.
+1. Check the Font box has a font selected - if it doesn't choose one - e.g. Arial 
+
+2. Towards the bottom there is a section dealing with Field colors. You will see three bars below the word Text, to the right there are in fact three invisible bars for the Background. Click in the area for the Background color for NULL. A colour selector window will open, select Red. The bar will turn Red. This is now the default background cell colour that will be used to display NULL values in you tables. We will discuss the meaning of NULL values in a table in a later episode.
 
  You can now close the preference window by clicking OK.
 
@@ -141,9 +143,6 @@ __farms__
 
 
 
-
-
-
 Close the currently open database (**File > Close Database**) and then follow these instructions:
 
 1. Start a New Database
@@ -151,23 +150,20 @@ Close the currently open database (**File > Close Database**) and then follow th
     - Give a name and click Save to create the database in the opened folder
     - In the "Edit table definition" window that pops up, click cancel as we will be importing tables, not creating them from scratch
 2. Select **File >> Import >> Table from CSV file...**
-3. Choose `plots.csv` from the data folder we downloaded and click **Open**.
-4. Give the table a name that matches the file name (`plots`), or use the default
+3. Choose the `SAFI_plots.csv` we downloaded and click **Open**.
+4. Give the table a name (`Plots`), or use the default
 5. If the first row has column headings, be sure to check the box next to "Column names in first line".
-6. Be sure the field separator and quotation options are correct. If you're not sure which options are correct, test some of the options until the preview at the bottom of the window looks right.
+6. Check the field separator and quotation options are correct. If you're not sure which options are correct, test some of the options until the preview at the bottom of the window looks right.
 7. Press **OK**, you should subsequently get a message that the table was imported.
 9. Back on the Database Structure tab, you should now see the table listed. Right click on the table name and choose **Modify Table**, or click on the **Modify Table** button just under the tabs and above the table list.
 10. Click **Save** if asked to save all pending changes.
-11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table below.
+11. In the center panel of the window that appears, set the data types for each field using the suggestions in the table.
 12. Finally, click **OK** one more time to confirm the operation. Then click the **Write Changes** button to save the database.
-
-> ## Challenge
->
-> - Import the `crops` and `farms` tables
-{: .challenge}
+13. Repeat this process to import the `SAFI_crops` and `SAFI_farms` tables (with the table names `Crops` and `Farms`)
 
 You can also use this same approach to append new fields to an existing table.
 
+**NOTE: If at this point you have any issues you can close this database, open the original [SQL_SAFI.sqlite](../data/SQL_SAFI.sqlite) file from earlier in this episode and continue.**
 
 ## Adding fields to existing tables
 
