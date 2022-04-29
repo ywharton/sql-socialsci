@@ -29,29 +29,17 @@ As were have noted above, a single table is very much like a spreadsheet. It has
 Often one or more columns in a row will be designated as a 'primary key'. This column or combination of columns can be used to uniquely identify a specific row in the table. 
 The columns typically have a name associated with them indicating the variable name. A column always represents the same variable for each row contained in the table. Because of this the data in each column will always be of the same *type*, such as an Integer or Text, of values for all of the rows in the table. Datatypes are discussed in the next section.
 
+## Setup
 
-## Why do tables have primary key columns?
+We use DB Browser for SQLite and the SQL SAFI database/dataset throughout this lesson. See the setup instructions on how to download the data, and also how to install the DB Browser for SQLite.
 
-Whenever you create a table, you will have the option of designating one of the columns as the primary key column. The main property of the primary key column is that the values contained in it must uniquely identify that particular row. That is you cannot have duplicate primary keys. This can be an advantage which adding rows to the table as you will not be allowed to add the same row (or a row with the same primary key) twice.
+## Motivation
+To start let's orient ourselves in our project workflow. Previously we used Excel and OpenRefine to go from messy, human created data to cleaned, computer-readable data.  Now we're going to move to the next piece of the data workflow, using the computer to read in our data, so we can then access it for analysis and visualisation.
 
-The primary key column for a table is usually of type Integer although you could have Text. For example if you had a table of car information, then the "Reg_No" column could be made the primary key as it can be used to uniquely identify a particular row in the table.
+## Dataset description
+The data we will be using is a subset of data collected from the SAFI (Studying African Farmer-Led Irrigation) project.  This project is looking at farming and irrigation methods. This is survey data relating to households and agriculture in Tanzania and Mozambique. The survey data was collected through interviews conducted between November 2016 and June 2017 using forms downloaded to Android Smartphones.
 
-A table doesn't have to have a primary key although they are recommended for larger tables. A primary key can also be made up of more than one column, although this is less usual.
+The survey covered such things as; household features (e.g. construction materials used, number of household members) on farms, agricultural practices (e.g. water usage, crops, plots), assets (e.g. number and types of livestock) and details about the household members.
 
 
-## What different types of keys are there?
-
-In addition to the primary key, a table may have one or more _Foreign keys_. A foreign key does not have to be unique or identified as a foreign key when the table is created. A foreign key in one table will relate to the primary key in another table. This allows a relationship to be created between the two tables. If a table needs to be related to several other tables, then there will be a foreign key  (column) for each of those tables.
-
-## How does the database represent missing data?
-
-All relational database systems have the concept of a NULL value. NULL can be thought of as being of all data types or of no data type at all. It represents something which is simply _not known_.
-
-When you create a database table, for each column you are allowed to indicate whether or not it can contain the NULL value. Like primary keys, this can be used as a form of data validation.
-
-In many real life situations you will have to accept that the data isn't perfect and will have to allow for NULL or missing values in your table.
-
-In DB Browser we can indicate how we want NULL values to be displayed. We will use a RED background to the cell to make it stand out. In SQL queries you can specifically test for NULL values.
-
-We will look at missing data in more detail in a later episode.
 

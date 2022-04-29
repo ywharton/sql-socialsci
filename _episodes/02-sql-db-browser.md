@@ -14,18 +14,6 @@ keypoints:
 
 ---
 
-## Setup
-
-We use DB Browser for SQLite and the SQL SAFI database/ dataset throughout this lesson. See the setup instructions on how to download the data, and also how to install the DB Browser for SQLite.
-
-## Motivation
-To start let's orient ourselves in our project workflow. Previously we used Excel and OpenRefine to go from messy, human created data to cleaned, computer-readable data.  Now we're going to move to the next piece of the data workflow, using the computer to read in our data, so we can then access it for analysis and visualisation.
-
-## Dataset description
-The data we will be using is a subset of data collected from the SAFI (Studying African Farmer-Led Irrigation) project.  This project  is looking at farming and irrigation methods. This is survey data relating to households and agriculture in Tanzania and Mozambique. The survey data was collected through interviews conducted between November 2016 and June 2017 using forms downloaded to Android Smartphones.
-
-The survey covered such things as; household features (e.g. construction materials used, number of household members), agricultural practices (e.g. water usage), assets (e.g. number and types of livestock) and details about the household members.
-
 
 ## Launching DB Browser
 
@@ -77,6 +65,8 @@ You can see the tables in the database by looking at the left hand side of the s
 
 The 'Database Structure' tab also provides some metadata about each table. If you click on the down arrow next to a table name, you will see information about the columns, which in databases are referred to as 'fields', and their assigned data types (the rows of a database table are called *records*). Each field contains one variety or type of data, often numbers or text. You can see in the Plots table that most fields contain numbers (INTEGER, REAL, or floating point numbers/decimals and TEXT) while the Crops table is mostly made up of INTEGER fields.
 
+The "Execute SQL" tab is where we'll be typing our queries to retrieve information from the database tables.
+
 ## A Note About Data Types
 
 The main data types that are used in SAFI database are `INTEGER` and `TEXT` which define what value the table column can hold. 
@@ -95,7 +85,19 @@ Different database software/platforms have different names and sometimes differe
 |date or datetime|depending on the platform, may represent the date and time or the number of days since a specified date.  This field often has a specified format, e.g., YYYY-MM-DD|doesn't exist - need to use built-in date and time functions and store dates in real, integer, or text formats.  See [Section 2.2 of SQLite documentation](https://www.sqlite.org/datatype3.html#date_and_time_datatype) for more details.
 | blob | a Binary Large OBject can store a large amount of data, documents, audio or video files.|BLOB|
 
-The "Execute SQL" tab is where we'll be typing our queries to retrieve information from the database tables.
+
+## How does the database represent missing data?
+
+All relational database systems have the concept of a NULL value. NULL can be thought of as being of all data types or of no data type at all. It represents something which is simply _not known_.
+
+When you create a database table, for each column you are allowed to indicate whether or not it can contain the NULL value. Like primary keys, this can be used as a form of data validation.
+
+In many real life situations you will have to accept that the data isn't perfect and will have to allow for NULL or missing values in your table.
+
+In DB Browser we can indicate how we want NULL values to be displayed. We will use a RED background to the cell to make it stand out. In SQL queries you can specifically test for NULL values.
+
+We will look at missing data in more detail in a later episode.
+
 
 
 ![Table Actions](../fig/DB_Browser_run_3.png)
@@ -121,7 +123,17 @@ In the Introduction to SQL lesson, we introduced the terms "fields", "records", 
 
 To design a database, we must first decide what kinds of things we want to represent as tables. A table is the physical manifestation of a kind of "entity". An entity is the conceptual representation of the thing we want to store informtation about in the database, with each row containing information about one entity. An entity has "attributes" that describe it, represented as fields. For example, a farm or a plot is an entity. Attributes would be things like the Country, or province which would appear as fields.  
 
-To create relationships between tables later on, it is important to designate one column as a primary key. A primary key, often designated as PK, is one attribute of an entity that distinguishes it from the other entities (or records) in your table. The primary key must be unique for each row for this to work. A common way to create a primary key in a table is to make an 'id' field that contains an auto-generated integer that increases by 1 for each new record. This will ensure that your primary key is unique. 
+To create relationships between tables later on, it is good to designate one column as a primary key. A primary key, often designated as PK, is one attribute of an entity that distinguishes it from the other entities (or records) in your table. The primary key must be unique for each row for this to work. A common way to create a primary key in a table is to make an 'id' field that contains an auto-generated integer that increases by 1 for each new record. This will ensure that your primary key is unique. 
+
+For example if you had a table of car information, then the "Reg_No" column could be made the primary key as it can be used to uniquely identify a particular row in the table. Take a look at the Farms table - what do you think the primary key here qwould be?
+
+A table doesn't have to have a primary key although they are recommended for larger tables. A primary key can also be made up of more than one column, although this is less usual.
+
+
+## What different types of keys are there?
+
+In addition to the primary key, a table may have one or more _Foreign keys_. A foreign key does not have to be unique or identified as a foreign key when the table is created. A foreign key in one table will relate to the primary key in another table. This allows a relationship to be created between the two tables. If a table needs to be related to several other tables, then there will be a foreign key (column) for each of those tables.
+
 
 ## Import
 Before we get started with writing our own queries, we'll create our own database - something many of you are likely to need to do.  We'll be creating our database from the three `csv` files we downloaded earlier.  
