@@ -19,7 +19,7 @@ keypoints:
 ---
 
 ## Definition of SQL 
-SQL stands for Structured Query Language. SQL allows us to interact swith data in a relational database through queries. These queries allow us to perform a number of actions such as inserting, selecting, updating, and deleting information in a database. 
+SQL stands for Structured Query Language. SQL allows us to interact with data in a relational database through queries. These queries allow us to perform a number of actions such as inserting, selecting, updating, and deleting information in a database. 
 
 In SQL, querying data is performed by a SELECT statement. A select statement has 6 key components;
 
@@ -71,7 +71,7 @@ FROM Farms;
 ~~~ 
 {: .sql}
 
-If we want more information, we can add more columns to the list of fields (such as A06_province, A07_district, A08_ward, A09_village),right after SELECT:
+If we want more information, we can add more columns to the list of fields (such as A06_province, A07_district, A08_ward, A09_village), right after SELECT:
 
 ~~~ 
 SELECT Country, A06_province, A07_district, A08_ward, A09_village
@@ -108,21 +108,21 @@ LIMIT 10;
 > > LIMIT 5;
 > > ~~~
 > > {: .sql}
-> > Because the query uses several columns (with longish names), for readability they have been set out on separate lines. SQL takes 
-> > of white space to you are free to arrange the text of the query as you like.  
-> {: .solution}
+> > Because the query uses several columns (with longish names), for readability  they have been set out on separate lines. SQL takes 
+ of white space to you are free to arrange the text of the query as you like.  
+ {: .solution}
 {: .challenge}
 
 ### Unique values
 
-If we want only the unique values so that we can quickly see what farms have been sampled we can use `DISTINCT` 
+If we want only the unique values so that we can quickly see what farms have been sampled we can use `DISTINCT`.
 Using the farms table we can obtain a list of all the different vlaues of the 'A06_province' column contained in the table.
 
 ~~~
     SELECT DISTINCT A06_province
     FROM Farms;
 ~~~
-> > {: .sql}
+{: .sql}
 
 If we select more than one column, then the distinct pairs of values are returned
 
